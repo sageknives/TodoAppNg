@@ -1,0 +1,548 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, button {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+* {
+        /*Reset's every elements apperance*/
+        background: none repeat scroll 0 0 transparent;
+        border: medium none;
+        border-spacing: 0;
+        color: black;
+        font-family: 'PT Sans Narrow',sans-serif;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 1.42rem;
+        list-style: none outside none;
+        margin: 0;
+        padding: 0;
+        text-align: left;
+        text-decoration: none;
+        text-indent: 0;
+}
+html, body{
+  width:100%
+  background-color:#EEEEEE;
+}
+:focus {
+  outline-color: transparent;
+  outline-style: none;
+}
+a {
+	color:black;
+}
+.divCenter{
+	width:100%;
+	margin:10px auto;
+}
+.divCenter table{
+	width:90%;
+	margin:0 auto;
+}
+/* header css */
+#header {
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:50px;
+  background:black;
+  z-index:2000;
+}
+#header ul, #header li{
+	vertical-align: top;
+}
+#content ul, #content li{
+	vertical-align: bottom;
+}
+.nav-button{
+  line-height:48px;
+  font-size:24px;
+  background:transparent;
+  color:white;
+  padding:0 10px;
+  text-decoration:none;
+  vertical-align: bottom;
+}
+.nav-image {
+	height:35px;
+	padding:5px 0;
+}
+div .list-item .view-image {
+	border:1px solid white;
+	height:32px;
+	width:34px;
+}
+.nav-button.right {
+	float:right;
+}
+#moving-navigation .nav-button.loneButton{
+	width:100%;
+}
+#moving-navigation {
+	position:fixed;
+	bottom:0;
+	left:0;
+	right:0;
+	height:45px;
+	width:100%;
+	background-color:black;
+	z-index:1000;
+}
+#moving-navigation .nav-button{
+	width:32%;
+	padding:0;
+	margin:0;
+	text-align:center;
+}
+.rect-button{
+	line-height:30px;
+	padding:5px;
+	background:gray;
+	color:black;
+	min-width:49%;
+	text-align:center;
+	font-size:20px;
+}
+
+#content{
+  position:fixed;
+  top:50px;
+  left:0;
+  right:0;
+  bottom:50px;
+  z-index:1;
+  overflow-y:scroll;
+}
+.full-screen{
+	position:fixed;
+  top:50px;
+  right:0;
+  bottom:50px;
+  left:0;
+  z-index:1;
+  height:100%;
+  overflow-y:scroll;
+  padding: 10px 10px 0;
+}
+div.todo-view-section-header {
+	background:#BCBCBC;
+
+}
+.todo-view-section {
+	padding:10px;
+	margin:10px 10px 0;
+	background:#B5B2B2;	
+	position:relative;
+}
+.todo-view-section .view-checkbox{
+	position:absolute;
+	top:0px;
+	right:0px;
+}
+.todo-view-section .title{
+	position:relative;
+	font-size:20px;
+	width:80%;
+}
+.todo-view-section .desc{
+	width:80%;
+}
+.todo-view-section .todo-date{
+}
+.todo-view-section .user{
+}
+.todo-view-section .subtask-count{
+	
+}
+.todo-view-section .edit-button{
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	width:50%;
+}
+.todo-view-section .show-subtasks, .todo-view-section .add-button{
+	position:absolute;
+	bottom:0px;
+	right:0px;
+	width:50%;
+}
+
+.todo-view-section .todo-id{
+	position:absolute;
+	top:45px;
+	right:10px;
+}
+.todo-view-section .parent-id{
+	position:absolute;
+	top:65px;
+	right:10px;
+}
+.todo-view-children{
+	padding-left:10px;	
+}
+/* Styles go here */
+.todo-list, .animate-element{
+  -webkit-transition: all 0.2s ease;
+	-moz-transition: all 0.2s ease;
+	-o-transition: all 0.2s ease;
+	transition: all 0.2s ease;
+
+}
+.loginOpen #loginForm{
+	right:0;
+}
+#loginForm {
+	position:fixed;
+	width:100%;
+	top:50px;
+	right:-100%;
+	height:150px;
+	background-color:rgba(0,0,0,.8);;
+	z-index: 200;
+}
+#login-form {
+	width:100%;
+}
+#loginForm label{
+	padding:10px;
+	width:40%;
+	color:white;
+	display:inline-block;
+	margin:0 auto;
+	text-align:right;
+}
+#loginForm input[type='text'], #loginForm input[type='password']{
+	width:55%;
+	display:inline-block;
+}
+#loginForm #invalid-login{
+	width:100%;
+	color:red;
+	text-align:center;
+	display:block;
+	margin:5px auto;
+}
+#loginForm button{
+	background-color:gray;
+	margin:0 0;
+	padding:10px;
+	text-align:center;
+	width:100%;
+}
+.todoOpen .todo-list.active, .repoOpen .repo-list {
+  position:fixed;
+  top:50px;
+  left:0;
+  right:0;
+  bottom:0;
+  margin:0;
+  padding:0;
+}
+
+.todo-list, .repo-list {
+  position:fixed;
+  top:50px;
+  left:-101%;
+  bottom:0;
+  margin:0;
+  padding:0;
+}
+.logOpen #log-list, .settingsOpen #settings-list {
+  position:fixed;
+  top:50px;
+  right:0;
+  bottom:0;
+  margin:0;
+  padding:0;
+}
+#log-list, #settings-list{
+  position:fixed;
+  top:50px;
+  right:-101%;
+  bottom:0;
+  margin:0;
+  padding:0;
+}
+.todo-list ul{
+  
+}
+.todo-list li, .todo-list a, .todo-list span {
+  
+
+}
+.list-header{
+  width:100%;
+  
+}
+.list-header a{
+  width:87.5%;
+  display:inline-block;
+}
+.list-div {
+    width:100%;
+    background-color:rgba(0,0,0,.8);
+	border:1px solid black;
+	height:100%;
+	overflow-y:scroll;
+}
+.filler {
+	height:150px;
+}
+.filler-50 {
+	height:50px;
+}
+.list-div .list-item{
+  border:1px solid black;
+  border-top:0;
+  width:100%;
+  list-style:none;
+  line-height:40px;
+  font-size: 24px;
+  margin:1px 0;
+}
+.list-item-top{
+  width:100%;
+  position:relative;
+  vertical-align: top;
+}
+.list-item-top .list-item-checkbox{
+  position:relative;
+  top:0;
+  bottom:0;
+  left:0;
+  width:10%;
+  line-height:40px;
+  vertical-align: top;
+}
+.picture-checkbox{
+	height:40px;
+	position:relative;
+}
+div.picture-checkbox{
+	height:30px;
+	width:30px;
+	margin:0 0 -5px 5px;
+	position:relative;
+	border:1px solid white;
+}
+.hidden {
+	display:none;
+}
+.list-item-top .list-item-title{
+  position:relative;
+  width:65%;
+  display:inline-block;
+  vertical-align: top;
+}
+.page-view-list{
+	margin-left:30px;
+}
+.page-view-list .list-item-title{
+	position:relative;
+  width:90%;
+  display:inline-block;
+  line-height:42px;
+}
+.page-view-list li{
+	list-style: decimal;
+}
+.repo-list .list-item-top .list-item-title{
+  padding-left:10%;
+}
+.list-item-title-right{
+	display:block;
+	padding-left:10%;
+}
+.list-item .list-item-button{
+  position:relative;
+  float:right;
+  width:10%;
+  display:inline-block;
+  color:white;
+  line-height:35px;
+}
+.list-item .nav-image {
+	height:30px;
+	padding:0px 0;
+}
+.list-item-bottom{
+	position:absolute;
+    width:100%;
+    left:-100%;
+}
+.list-item-bottom.active{
+	position:relative;
+  	left:0;
+  	margin-bottom:50px;
+}
+.list-item-action {
+	width:25%;
+	margin:0px;
+	text-align:center;
+	display:block;
+	float:left;
+  	line-height:40px;
+}
+.green {
+	background-color:#275107;
+	color:white;
+}
+.red{
+	background-color:#820E23;
+	color:white;
+}
+.orange {
+	background-color:#C7830E;
+	color:white;
+}
+.blue {
+	background-color:#090C5F;
+	color:white;
+}
+.list-div a {
+  color:white;
+  text-decoration: none;
+}
+
+/*forms*/
+.addFormOpen #add-form-container, .moveFormOpen #move-form-container, .error #error-container{
+	right:0;
+}
+#add-form-container, #move-form-container, #error-container{
+	position:fixed;
+	background-color:rgba(0,0,0,.8);
+	color:white;
+	top:50px;
+	right:-100%;
+	width:100%;
+	bottom:0;
+	overflow-y:scroll;
+}
+.dark-form {
+	width:90%;
+	margin:0 auto;
+	tect-align:center;
+}
+.dark-form label, .dark-form button, .dark-form p, .dark-form input{
+	color:white;
+}
+.dark-form label{
+	width:100%;
+	margin:5px auto;
+	text-align:left;
+	display:block;
+}
+.dark-form input[type='text'], .dark-form input[type='password'], .dark-form textarea, pre{
+	width:100%;
+	background:#F2F0F0;
+	color:black;
+	padding:5px;
+	margin:10px 0;
+}
+.dark-form .inline-label{
+	display:inline-block;
+	width:auto;
+	padding:10px;
+}
+.dark-form select{
+	background:white;
+	color:black;
+	display:inline-block;
+	padding:5px;
+}
+.dark-form p {
+	width:100%;
+	color:#DE9999;
+	padding:10px;
+	font-size:24px;
+	text-align:center;
+}
+.dark-form h3{
+	color:white;
+}
+#error-container h3, #error-container h1{
+	padding:10px;
+	width:70%;
+	line-height:50px;
+	text-align:center;
+	color:#DE9999;
+	font-size:24px;
+	margin:0 auto;
+}
+#error-container h1{
+	font-size:40px;
+}
+
+@media (min-width: 768px) {
+	#moving-navigation {
+		position:relative;
+		display:inline-block;
+		width:auto;
+	}
+	#moving-navigation .nav-button{
+		width:auto;
+		padding:0 10px;
+		margin:0;
+		text-align:center;
+	}
+	.nav-button.left {
+		display:inline-block;
+	}
+	.todo-list, .repo-list {
+	  position:fixed;
+	  top:50px;
+	  left:-401px;
+	  bottom:0;
+	  margin:0;
+	  padding:0;
+	}
+	.list-div {
+	    width:400px;
+	    background-color:rgba(0,0,0,.8);
+		border:1px solid black;
+		height:100%;
+		overflow-y:scroll;
+	}
+	.rect-button{
+		min-width:100px;
+	}
+}

@@ -1,0 +1,16 @@
+<div id="home-container" ng-swipe-left="openNav('logOpen')" ng-swipe-right="openNav('todoOpen')" class="full-screen full">
+
+	home
+	<div ng-show="upcomingTodos.length >= 1" class="todo-view-section"  ng-swipe-left="openNav('logOpen')" ng-swipe-right="openNav('todoOpen')" >
+		
+		<h3>Upcoming Todos</h3>	
+		<ul class="page-view-list">
+	    <li id="listitem-{{todo.id}}" class="list-item" ng-repeat="todo in upcomingTodos | orderBy:'dueDate'">
+			<a class="list-item-title" ng-if="(todo.children).length >= 1" href="#/todo-list/{{todo.id}}" ng-click="updateViewNode(todo, 'list')">{{todo.title}}</a>
+	        <a class="list-item-title" ng-if="(todo.children).length == 0" href="#/todo-list/{{todo.id}}"  ng-click="updateViewNode(todo, 'list')">{{todo.title}}</a>
+	    </li>
+	  </ul>
+	</div>
+	
+	<div class="filler"></div>
+</div>

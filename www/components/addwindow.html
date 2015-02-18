@@ -1,0 +1,23 @@
+<div id="add-form-container" class="animate-element">
+	<div id="add-form" class="dark-form">
+		<p id="invalid-todo">invalid todo</p>
+		<label for="add-todo-name">Title:</label><input type="text" id="add-todo-name" ng-model="editAddNode.title" name="todoname" />
+		<input type="hidden" id="add-todo-date" name="tododate" value="{{editAddNode.dueDate}}"/>
+		<pre><em>Due:{{editAddNode.dueDate | date:'fullDate' }}</em></pre>
+		<div class="divCenter">
+        	<datepicker ng-model="editAddNode.dueDate" min-date="minDate" show-weeks="false" max-date="maxDate" class="well well-sm"></datepicker>
+    	</div>
+    
+		<label for="add-todo-desc">Description:</label><textarea rows="5" type="text" id="add-todo-desc" ng-model="editAddNode.desc" name="tododesc" value=""/></textarea>
+		<br class="clear"/>
+		<!--<p>Add Image:</p><button id="browse-image1" class="browse-button" name="browse" value="browse">Browse</button>
+		<br class="clear"/>-->
+		<button id="cancel-button" class="rect-button red" name="submit" value="submit" ng-click="openNav(previousMenu)">Cancel</button>
+		<button id="add-button" class="rect-button green" name="submit" value="submit" ng-click="submitAddForm(parentAddNode)">Add</button>
+		
+		<br class="clear"/>
+		<div class="filler"></div>
+	</div>
+</div>
+	
+	

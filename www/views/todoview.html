@@ -1,0 +1,27 @@
+<div ng-swipe-left="openNav('logOpen')" ng-swipe-right="openNav('todoOpen')" class="{{fullscreen}} todo-view-section">
+<label class="view-checkbox" ng-show="todo.children.length == 0" for="checkbox-for-{{todo.id}}">
+	    	<img class="picture-checkbox" ng-show="todo.complete" src="images/checked.png"/>
+	    	<div class="picture-checkbox" ng-show="!todo.complete"></div>
+	    </label>
+	    <input id="checkbox-for-{{todo.id}}" class="list-item-checkbox hidden" ng-model="todo.complete" ng-change="todoCompleteChange(todo)" type="checkbox" />
+	    <!--parent done-->
+	    <label class="view-checkbox" ng-show="todo.children.length >= 1" >
+	    	<img class="picture-checkbox" ng-show="todo.complete" src="images/checked.png"/>
+	    	<img class="picture-checkbox" ng-show="!todo.complete" src="images/blank.gif"/>
+	    </label>
+	<p class="todo-id">Id: {{ todo.id }}</p>
+		<h3 class="title">Title: {{ todo.title }}</h3>
+		<p class="desc">Description: {{ todo.desc }}</p>
+		<p class="parent-id">Parent: {{ todo.parent }}</p>
+		<p class="todo-date">Last Updated: {{ todo.lastUpdated | date:'fullDate'}}</p>
+		<p class="todo-date">Due Date: {{ todo.dueDate | date:'fullDate' }}</p>
+		<p class="user">Created By: {{ todo.createdBy }}</p>
+		<p class="subtask-count">Subtasks:{{todo.children.length}}</p>
+		<div class="filler-50"></div>
+		<button class="rect-button blue edit-button" ng-click="editForm(todo)">edit</button>
+		<button ng-if="(todo.children.length) >= 1" class="rect-button show-subtasks"><a  href="#/todo-list/{{todo.id}}"  ng-click="updateViewNode(todo, 'list')"> Show subtasks</a>
+	
+	
+	
+	
+</div>

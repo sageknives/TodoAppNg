@@ -1,0 +1,13 @@
+<div ng-show="loggedIn" id="log-list" class="worklog-list list-div animate-element"  ng-swipe-right="openNav('')">
+	<div class="list-header list-item">
+		<a class="list-item-title-right">{{logItems.title}}:{{logItems.id}} -></a>
+  	</div>
+  	<ul>
+		<li class="list-item" ng-repeat="item in logItems.children">
+			<div class="list-item-top">
+				<a class="list-item-title-right" href="#/todo-view/{{item.id}}"  ng-click="updateViewNode(item, 'list')">{{item.title}}</a>
+   			</div>
+		</li>
+  	</ul>
+  	<div class="filler"></div>
+</div>

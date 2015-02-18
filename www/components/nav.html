@@ -1,0 +1,20 @@
+<div id="header" ng-controller="TodoNavController" class="{{activeNav}}">
+  <a href="#/home" ng-click="updateViewNode('','home')" class="nav-button left"><img class="nav-image" src="images/home.png" /></a>
+  <div id="moving-navigation">
+  	<button ng-show="loggedIn" id="todo-button" class="nav-button"  ng-click="openNav('todoOpen')">Todos</button>
+  	<button id="repo-button" class="nav-button {{loneButton}}"  ng-click="openNav('repoOpen')">Repos</button>
+  	<button ng-show="loggedIn" id="log-button" class="nav-button"  ng-click="openNav('logOpen')">Log</button>
+  </div>
+    <button ng-show="loggedIn" id="settings-button" class="nav-button right"  ng-click="errorWindow('Settings')"><img class="nav-image" src="images/settings-icon.png" /></button>
+	<button ng-show="!loggedIn" id="login-button" class="nav-button right"  ng-click="openNav('loginOpen')">Login</button>
+
+    <button id="search-button" class="nav-button right"  ng-click="errorWindow('Search')"><img class="nav-image" src="images/search.png" /></button>
+	
+ 	<div ng-include="'components/addwindow.html'" ng-swipe-right="openNav('')"></div>
+	<div ng-include="'components/movewindow.html'" ng-swipe-right="openNav('')"></div>
+	<div ng-include="'components/errorwindow.html'" ng-swipe-right="openNav('')"></div>
+	<div ng-include="'components/loginwindow.html'" ng-swipe-right="openNav('')"></div>
+	<div ng-include="'components/logwindow.html'" ng-swipe-right="openNav('')"></div>
+	<div ng-include="'components/repowindow.html'" ng-swipe-left="openNav('')"></div>
+	<div ng-include="'components/todowindow.html'" ng-swipe-left="openNav('')"></div>
+</div>

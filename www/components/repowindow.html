@@ -1,0 +1,25 @@
+<div id="listrepoid-{{activeRepoList.id}}" class="repo-list list-div animate-element {{activeRepoList.currentClass}}"  ng-swipe-left="openNav('')">
+  	<div class="list-header list-item">
+		<a href="" ng-click="change(activeRepoList.parentNode)"> <- {{activeRepoList.title}}</a>
+		<button class="list-item-button" ng-click="errorWindow('Repo add')"><img class="nav-image" src="images/add.png" /></button>
+  	</div>
+  	<ul>
+		<li id="listitem-{{node.id}}" class="list-item" ng-repeat="node in activeRepoList.children | orderBy:'complete'">
+  			<div class="list-item-top">
+				<button class="list-item-button" ng-click="showOptions(node)"><img class="nav-image" src="images/settings-icon.png" /></button>
+				<a ng-if="(node.children).length >= 1" href="#/todo-list/{{node.id}}" class="list-item-button" ng-click="updateViewNode(node,'list')">view</a>
+				<button ng-if="(node.children).length == 0" class="list-item-button" ng-click="errorWindow('Repo add')"><img class="nav-image" src="images/add.png" /></button>
+				<a class="list-item-title" ng-if="(node.children).length >= 1" href="" ng-click="change(node)">{{node.title}}</a>
+				<a class="list-item-title" ng-if="(node.children).length == 0" href="#/todo-view/{{node.id}}"  ng-click="updateViewNode(node, 'list')">{{node.title}} page</a>
+				<br class="clear" />
+  			</div>
+  			<div id="list-bottom-{{node.id}}" class="list-item-bottom animate-element">
+				<button class="list-item-action green" ng-click="errorWindow('Repo save')">save</button>
+				<button class="list-item-action gray" ng-click="errorWindow('Repo edit')">edit</button>
+				<button class="list-item-action blue" ng-click="errorWindow('Repo move')">move</button>
+				<button class="list-item-action red" ng-click="errorWindow('Repo delete')">delete</button>
+			</div>
+		</li>
+  	</ul>
+  	<div class="filler"></div>
+</div>

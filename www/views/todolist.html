@@ -1,0 +1,29 @@
+<div ng-swipe-left="openNav('logOpen')" ng-swipe-right="openNav('todoOpen')" class="full-screen">
+	<a class="list-item-title rect-button" ng-if="todolist.parentNode !== null" href="#/todo-list/{{todolist.id}}"  ng-click="updateViewNode(todolist.parentNode, 'list')"> Up to {{todolist.parentNode.title}}</a>
+	<div class="todo-view-section todo-view-section-header">
+		<p class="todo-id">Id: {{ todolist.id }}</p>
+		<h3 class="title">Title: {{ todolist.title }}</h3>
+		<p class="desc">Description: {{ todolist.desc }}</p>
+		<p class="parent-id">Parent: {{ todolist.parent }}</p>
+		<p class="todo-date">Last Updated: {{ todolist.lastUpdated | date:'fullDate'}}</p>
+		<p class="todo-date">Due Date: {{ todolist.dueDate | date:'fullDate'}}</p>
+		<p class="user">Created By: {{ todolist.createdBy }}</p>
+		<p class="subtask-count">Subtasks:{{todolist.children.length}}</p>
+		<div class="filler-50"></div>
+		<button class="rect-button blue edit-button" ng-click="editForm(todolist)">edit</button>
+		<button class="rect-button green add-button" ng-click="addForm(todolist)">add</button>
+		<!--leaf-->
+	    <label class="view-checkbox" ng-show="todolist.children.length == 0" for="checkbox-for-{{todolist.id}}">
+	    	<img class="picture-checkbox" ng-show="todolist.complete" src="images/checked.png"/>
+	    	<div class="picture-checkbox" ng-show="!todolist.complete"></div>
+	    </label>
+	    <input id="checkbox-for-{{todolist.id}}" class="list-item-checkbox hidden" ng-model="todolist.complete" ng-change="todoCompleteChange(todolist)" type="checkbox" />
+	    <!--parent done-->
+	    <label class="view-checkbox" ng-show="todolist.children.length >= 1" >
+	    	<img class="picture-checkbox" ng-show="todolist.complete" src="images/checked.png"/>
+	    	<img class="picture-checkbox" ng-show="!todolist.complete" src="images/blank.gif"/>
+	    </label>
+	</div>
+	<div class="todo-view-children" ng-repeat="todo in todolist.children | orderBy:'complete'" ng-include="'views/todoview.html'" ng-swipe-left="openNav('logOpen')" ng-swipe-right="openNav('todoOpen')">	</div>
+	<div class="filler" ng-swipe-left="openNav('logOpen')" ng-swipe-right="openNav('todoOpen')"></div>
+</div>

@@ -1,0 +1,36 @@
+<div id="listid-{{activeList.id}}" class="todo-list list-div {{activeList.currentClass}}" ng-swipe-left="openNav('')">
+  	<div class="list-header list-item">
+		<a href="" ng-click="change(activeList.parentNode)"> <- {{activeList.title}}</a>
+    	<button class="list-item-button" ng-click="addForm(activeList)"><img class="nav-image" src="images/add.png" /></button>
+  	</div>
+  	<ul>
+		<li id="listitem-{{activeList.id}}" class="list-item" ng-repeat="node in activeList.children | orderBy:'complete'">
+		  	<div class="list-item-top">
+		  		<!--leaf-->
+			    <label ng-show="node.children.length == 0" for="checkbox-for-{{node.id}}">
+			    	<img class="picture-checkbox" ng-show="node.complete" src="images/checked.png"/>
+			    	<div class="picture-checkbox" ng-show="!node.complete"></div>
+			    </label>
+			    <input id="checkbox-for-{{node.id}}" class="list-item-checkbox hidden" ng-model="node.complete" ng-change="todoCompleteChange(node)" type="checkbox" />
+			    <!--parent done-->
+			    <label ng-show="node.children.length >= 1" >
+			    	<img class="picture-checkbox" ng-show="node.complete" src="images/checked.png"/>
+			    	<img class="picture-checkbox" ng-show="!node.complete" src="images/blank.gif"/>
+			    </label>
+			    <!--<input class="list-item-checkbox" ng-if="node.complete == 0" ng-model="node.complete" ng-change="todoCompleteChange(node)" type="checkbox" />
+			    --><button class="list-item-button" ng-click="showOptions(node)"><img class="nav-image" src="images/settings-icon.png" /></button>
+			    <a ng-if="(node.children).length >= 1" href="#/todo-list/{{node.id}}" class="list-item-button" ng-click="updateViewNode(node, 'list')"><img class="nav-image view-image" src="images/view.png" /></a>
+			    <button ng-if="(node.children).length == 0" class="list-item-button" ng-click="addForm(node)"><img class="nav-image" src="images/add.png" /></button>
+				<a class="list-item-title" ng-if="(node.children).length >= 1" href="" ng-click="change(node)">{{node.title}}</a>
+			    <a class="list-item-title" ng-if="(node.children).length == 0" href="#/todo-list/{{node.id}}"  ng-click="updateViewNode(node, 'list')">{{node.title}}</a>
+		  	</div>
+		  	<div id="list-bottom-{{node.id}}" class="list-item-bottom animate-element">
+		    	<button class="list-item-action green" ng-click="errorWindow('Todo share')">share</button>
+		    	<button class="list-item-action blue" ng-click="editForm(node)">edit</button>
+		    	<button class="list-item-action orange" ng-click="moveForm(node)">move</button>
+		    	<button class="list-item-action red" ng-click="deleteTodo(node)">delete</button>
+		  	</div>
+		</li>
+  	</ul>
+  	<div class="filler"></div>
+</div>

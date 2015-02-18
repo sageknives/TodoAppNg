@@ -1,0 +1,12 @@
+<div id="listid-{{value.id}}" class="todo-list {{value.currentClass}}">
+  <span class="muted">
+ <a href="" class="blue" ng-click="onTodoNavChange(parent, action)">{{value.title}} </a>
+       </span>
+  <ul>
+    <li ng-repeat="node in value.children">
+      <a ng-if="(node.children).length >= 1" href="" class="blue" ng-click="onTodoNavChange(node)">{{node.title}}</a>
+      <a ng-if="(node.children).length == 0" href="#/todo-view/{{node.id}}" class="blue" ng-click="onTodoNavChange(1, action, node)">{{node.title}} page</a>
+      <todo ng-if="(node.children).length >= 1" value="node" parent="value" action="action()"></todo>
+    </li>
+  </ul>
+</div>

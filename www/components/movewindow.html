@@ -1,0 +1,14 @@
+<div id="move-form-container" class="animate-element">
+	<div id="move-form" class="dark-form">
+		<label class="inline-label" for="current-todo-lists">Move {{moveNode.title}} to:</label>
+		<select id="current-todo-lists"
+			ng-options="todoNode as todoNode.title for todoNode in listOfTodos " 
+			ng-model="todoNode" >
+		</select>
+		<br class="clear"/>
+		<button id="cancel-move-button" class="rect-button red" name="submit" ng-click="openNav(previousMenu)" value="submit">Cancel</button>
+		<button id="move-button" class="rect-button green" name="submit" value="submit" ng-click="submitMoveForm(moveNode,todoNode)">Move</button>
+		<p id="invalid-todo">invalid todo</p>
+		<br class="clear"/>
+	</div>
+</div>
