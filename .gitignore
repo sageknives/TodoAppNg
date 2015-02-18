@@ -1,0 +1,6 @@
+platforms/
+plugins/
+hooks/
+ionic.project
+
+config.xml
