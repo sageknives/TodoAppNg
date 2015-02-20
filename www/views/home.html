@@ -1,13 +1,13 @@
 <div id="home-container" ng-swipe-left="openNav('logOpen')" ng-swipe-right="openNav('todoOpen')" class="full-screen full">
 
 	home
-	<div ng-show="upcomingTodos.length >= 1" class="todo-view-section"  ng-swipe-left="openNav('logOpen')" ng-swipe-right="openNav('todoOpen')" >
+	<div ng-show="upcomingTodoList" class="todo-view-section"  ng-swipe-left="openNav('logOpen')" ng-swipe-right="openNav('todoOpen')" >
 		
 		<h3>Upcoming Todos</h3>	
 		<ul class="page-view-list">
-	    <li id="listitem-{{todo.id}}" class="list-item" ng-repeat="todo in upcomingTodos | orderBy:'dueDate'">
-			<a class="list-item-title" ng-if="(todo.children).length >= 1" href="#/todo-list/{{todo.id}}" ng-click="updateViewNode(todo, 'list')">{{todo.title}}</a>
-	        <a class="list-item-title" ng-if="(todo.children).length == 0" href="#/todo-list/{{todo.id}}"  ng-click="updateViewNode(todo, 'list')">{{todo.title}}</a>
+	    <li id="listitem-{{todo.id}}" class="list-item" ng-repeat="(key, todo) in upcomingTodoList|orderBy:'todo.dueDate'">
+			<button class="list-item-title" ng-if="(todo.children).length >= 1" ng-click="updateViewNode(todo, 'list')">{{todo.title}}</button>
+	        <button class="list-item-title" ng-if="(todo.children).length == 0" ng-click="updateViewNode(todo, 'list')">{{todo.title}}</button>
 	    </li>
 	  </ul>
 	</div>

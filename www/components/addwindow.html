@@ -3,9 +3,16 @@
 		<p id="invalid-todo">invalid todo</p>
 		<label for="add-todo-name">Title:</label><input type="text" id="add-todo-name" ng-model="editAddNode.title" name="todoname" />
 		<input type="hidden" id="add-todo-date" name="tododate" value="{{editAddNode.dueDate}}"/>
-		<pre><em>Due:{{editAddNode.dueDate | date:'fullDate' }}</em></pre>
+		<pre ng-show="!noDueDate"><em>Due:{{editAddNode.dueDate | date:'fullDate' }}</em></pre>
+		<label class="addEdit-checkbox" for="checkbox-for-add-edit-node">
+			No Due Date: 
+    		<img class="picture-checkbox" ng-show="noDueDate" src="images/checked.png"/>
+    		<div class="picture-checkbox" ng-show="!noDueDate"></div>
+    		
+    	</label>
+    	<input id="checkbox-for-add-edit-node" class="list-item-checkbox hidden" ng-model="noDueDate" ng-change="updateDueDate()" type="checkbox" />
 		<div class="divCenter">
-        	<datepicker ng-model="editAddNode.dueDate" min-date="minDate" show-weeks="false" max-date="maxDate" class="well well-sm"></datepicker>
+        	<datepicker ng-hide="noDueDate" ng-model="editAddNode.dueDate" min-date="minDate" show-weeks="false" max-date="maxDate" class="well well-sm"></datepicker>
     	</div>
     
 		<label for="add-todo-desc">Description:</label><textarea rows="5" type="text" id="add-todo-desc" ng-model="editAddNode.desc" name="tododesc" value=""/></textarea>

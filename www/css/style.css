@@ -364,6 +364,9 @@ div.picture-checkbox{
 	position:relative;
 	border:1px solid white;
 }
+.addEdit-checkbox div.picture-checkbox{
+	display:inline-block;
+}
 .hidden {
 	display:none;
 }

@@ -3,21 +3,16 @@
   var model = null;	
 
   
-  var TodoListController = function($scope, $routeParams,$location, todo){
-  	var model = todo.getModel();
-  	var node = model.currentNode;
-  	if(node === null){
-  		$location.path('/home');
-  	}
-    $scope.todolist = node;
-    $scope.openNav = model.openNav;
-    $scope.updateViewNode = model.updateViewNode;
+  var TodoListController = function($scope, $routeParams,$location, ModelManager, NavManager, ViewManager){
+
+    if(!ViewManager.hasCurrentNode()){
+      $location.path('/home');
+    }
+    $scope.todolist = ViewManager.getCurrentNode();
+    NavManager.connectNav($scope);
+
+    ModelManager.getTodoActions($scope);
     $scope.fullscreen = '';
-    $scope.updateNav = function (navClass) {
-        todo.notifyNav(navClass);
-      };
-  	$scope.editForm = model.editForm;
-  	$scope.addForm = model.addForm; 
   };
   
 

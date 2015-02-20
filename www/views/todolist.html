@@ -1,5 +1,5 @@
 <div ng-swipe-left="openNav('logOpen')" ng-swipe-right="openNav('todoOpen')" class="full-screen">
-	<a class="list-item-title rect-button" ng-if="todolist.parentNode !== null" href="#/todo-list/{{todolist.id}}"  ng-click="updateViewNode(todolist.parentNode, 'list')"> Up to {{todolist.parentNode.title}}</a>
+	<button class="list-item-title rect-button" ng-if="todolist.parentNode !== null" ng-click="updateViewNode(todolist.parentNode, 'list')"> Up to {{todolist.parentNode.title}}</button>
 	<div class="todo-view-section todo-view-section-header">
 		<p class="todo-id">Id: {{ todolist.id }}</p>
 		<h3 class="title">Title: {{ todolist.title }}</h3>
@@ -17,7 +17,7 @@
 	    	<img class="picture-checkbox" ng-show="todolist.complete" src="images/checked.png"/>
 	    	<div class="picture-checkbox" ng-show="!todolist.complete"></div>
 	    </label>
-	    <input id="checkbox-for-{{todolist.id}}" class="list-item-checkbox hidden" ng-model="todolist.complete" ng-change="todoCompleteChange(todolist)" type="checkbox" />
+	    <input id="checkbox-for-{{todolist.id}}" class="list-item-checkbox hidden" ng-model="todolist.complete" ng-change="completeTodo(todolist)" type="checkbox" />
 	    <!--parent done-->
 	    <label class="view-checkbox" ng-show="todolist.children.length >= 1" >
 	    	<img class="picture-checkbox" ng-show="todolist.complete" src="images/checked.png"/>

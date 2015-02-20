@@ -1,13 +1,11 @@
 (function() {
 
-  var model = {
+  var todoModel = {
   	todos: null,
-  	repos: null,
-    logItems:null,
-     upcomingTodoList: {},
-     activeList: null,
-     loggedInStatus: false,
-     listOfTodos: {}
+    upcomingTodoList: {},
+    listOfTodos: {},
+    activeList: null,
+    currentNode: null
   };
   
   /* Code needs refactoring
@@ -22,16 +20,16 @@
   var aWeekOut = new Date();
   aWeekOut.setDate(aWeekOut.getDate() + 7); 
   //var loggedInStatus = true;
-  var todo = function($http, $window, NotificationLog, RepoModel ) {
-    model.repos = RepoModel.getRepoList();
-    model.logItems = NotificationLog.getNotificationLog();
+  var TodoModel = function($http, $window) {
+
     var getAll = function(token) {
-	    return $http.get("http://sagegatzke.com/todosajax/services.php/?action=getall&token=" + mytoken)
+        mytoken = token;
+	    return $http.get("http://sagegatzke.com/todosajax/services.php/?action=getall&token=" + token)
 	      .then(function(data, status, headers, config) {
 	      	console.log('got data');
-	      	
-	      	return makeTree(null, data.data);
-	        
+	      	todoModel.todos = makeTree(null, data.data);
+            console.log('got tree');
+	      	return;
 	      });
     };
     
@@ -49,7 +47,7 @@
 	    		todo.parentNode.complete = false;
 	    		todoIsComplete(todo.parentNode);
 	    	}
-	    	model.listOfTodos.push(todo);
+	    	todoModel.listOfTodos[todo.id] = todo;
     	}
     	
     	$http.get("http://sagegatzke.com/todosajax/services.php/?action=add&token=" + mytoken + "&treeId=" + todo.parent + "&name=" + todo.title + "&info=" + todo.desc + "&date=" + todo.dueDate + "&lastupdated=" + todo.lastUpdated + "&todoid=" + todo.id )
@@ -57,22 +55,22 @@
 	      	console.log('got data');
 	      	console.log(data.data);
 	      	todo.id = data.data.id;
-	      	todo.createBy = data.data.createdby;
+	      	todo.createdBy = data.data.createdby;
 	        
 	      });
 	      
     };
     
     var createTodo = function(title, desc, dueDate, parent){
-    	var timeStamp = getTimeStamp();
-		dueDate = new Date(dueDate).toMysqlFormat();
+    	//var timeStamp = getTimeStamp();
+		dueDate = new Date(dueDate);
     	var todo = {
     		id: "",
     		title: title,
     		parentNode: parent,
     		parent: parent.id,
     		complete: false,
-    		lastUpdated: timeStamp,
+    		lastUpdated: new Date(),
     		desc: desc,
     		images: [],
     		dueDate: dueDate,
@@ -113,6 +111,7 @@
     		node.parentNode.complete = false;
     		todoIsComplete(node.parentNode);
     	}
+        node.lastUpdated = new Date().toISOString();
     	$http.get("http://sagegatzke.com/todosajax/services.php/?action=move&token=" + mytoken + "&treeId=" + node.id + "&parent=" + node.parent + "&lastupdated=" + node.lastUpdated)
 	      .then(function(data, status, headers, config) {
 	      	console.log('got data moved');
@@ -133,7 +132,7 @@
                 model.upcomingTodoList[node.id] = node;
             }
         }
-    	node.lastUpdated = getTimeStamp();
+    	node.lastUpdated = new Date().toISOString();
     	console.log(node.complete);
     	$http.get("http://sagegatzke.com/todosajax/services.php/?action=complete&token=" + mytoken + "&treeId=" + node.id + "&complete=" + convertBoolToNum(node.complete) + "&lastupdated=" + node.lastUpdated)
 	      .then(function(data, status, headers, config) {
@@ -195,32 +194,19 @@
 	};
  
 	Date.prototype.toMysqlFormat = function() {
-    	return this.getUTCFullYear() + "-" + twoDigits(1 + this.getUTCMonth()) + "-" + twoDigits(this.getUTCDate()) + " " + twoDigits(this.getHours()) + ":" + twoDigits(this.getUTCMinutes()) + ":" + twoDigits(this.getUTCSeconds());
+    	return this.getUTCFullYear() + "-" + twoDigits(1 
+            + this.getUTCMonth()) + "-" + twoDigits(this.getUTCDate()) + " " 
+            + twoDigits(this.getHours()) + ":" + twoDigits(this.getUTCMinutes()) + ":" 
+            + twoDigits(this.getUTCSeconds());
 	};
     
     var getModel = function(){
-        console.log('in get model');
-    	return model;
+    	return todoModel;
     };
 
 	var hasModel = function(){
-		return model.todos !== null;
+		return todoModel.todos !== null;
 	};
-    var login = function(userName,password) {
-    	var url = "http://sagegatzke.com/todosajax/services.php/?username="+ userName +"&password=" +password;
-      return $http.get(url)
-        .then(function(data, status, headers, config) {
-        	if(data.data > 0){
-        		 mytoken = data.data;
-        		 model.loggedInStatus = true;
-        	}
-         	else{
-         		mytoken = "invalid log in";
-         	}
-          ///console.write(mytoken);
-          return mytoken;
-        });
-    };
     
     var getNode = function(id){
     	//if(id === null){
@@ -245,9 +231,9 @@
     var setUpComingTodos = function(action){
     	setUpcomingTodolist = action;
     }
-    var getUpcomingTodos = function(){
+    var getUpcoming = function(){
     	if(upcomingTodoList.length){
-    		return setUpcomingTodolist(upcomingTodoList);
+    		return upcomingTodoList;
     	}
     	else{
     		return [{title:'all caught up'}];
@@ -258,14 +244,15 @@
     };
     //search tree 
     var findNode = function(id){
-    	if(currentNode.id == id) return currentNode;
-    	
+    	if(currentNode.id == id) return currentNode;   	
     };
 
     var convertDateForTree = function(stringDate){
         if(stringDate === null || stringDate == '0000-00-00 00:00:00') return null;
         return new Date(stringDate);
     };
+
+    //in use!
     //private tree builder
     var makeTree = function(parent, data){
 
@@ -285,18 +272,18 @@
     	};
         if(parent !== null){
             if(data.children.length >= 1){
-                model.listOfTodos[node.id] = node;
+                todoModel.listOfTodos[node.id] = node;
             }
 
             if(!node.complete && node.dueDate !== null && node.dueDate <= aWeekOut){
-                model.upcomingTodoList[node.id] = node;
+                todoModel.upcomingTodoList[node.id] = node;
             }
         }   
 
     	if(parent === null){
     		node.currentClass = 'active';
-    		model.activeList = node;
-    		model.currentNode = node;
+    		todoModel.activeList = node;
+    		todoModel.currentNode = node;
     		console.log('top found and set to active');
     	}
     	else{
@@ -313,7 +300,7 @@
     		makeTree(parent, data.children[i]);
     	}
     	return;
-    }
+    };
     
     //private tree to list builder
     var makeListFromTree = function(parent,data,list){
@@ -332,11 +319,11 @@
     		children: []
     	};
     	if(node.complete == 0){
-    		upcomingTodoList.push(node);
+    		todoModel.upcomingTodoList.push(node);
     	}
     	if(parent === null){
     		node.currentClass = 'active';
-    		currentNode = node;
+    		todoModel.currentNode = node;
     		console.log('top found and set to active');
     	}
     	else{
@@ -359,9 +346,26 @@
     	}
     	return list;
     };
+    var getActions = function(viewScope){
+        viewScope.addTodo = addTodo;
+        viewScope.moveTodo = moveTodo;
+        viewScope.deleteTodo = deleteTodo;
+        viewScope.completeTodo = todoIsComplete;
+        viewScope.createTodo = createTodo;
+    };
+    var bindTodoVariables = function(viewScope){
+        viewScope.upcomingTodoList = todoModel.upcomingTodoList;
+        viewScope.listOfTodos = todoModel.listOfTodos;
+        viewScope.activeList = todoModel.activeList;
+        viewScope.currentNode = todoModel.currentNode;
+    };
     return {
       getAll: getAll,
-      logIn: login,
+      getUpcoming:getUpcoming,
+      getModel:getModel,
+      getActions:getActions,
+      bindTodoVariables:bindTodoVariables
+      /*logIn: login,
       getNode: getNode,
       setNode: setNode,
       getActiveList: getActiveList,
@@ -377,10 +381,10 @@
       moveTodo: moveTodo,
       todoIsComplete: todoIsComplete,
       convertDateTime: convertDateTime,
-      deleteTodo: deleteTodo
+      deleteTodo: deleteTodo*/
     };
   };
 
   var module = angular.module("todoApp");
-  module.factory("todo", todo);
+  module.factory("TodoModel", TodoModel);
 }());
