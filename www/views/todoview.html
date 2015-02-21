@@ -1,12 +1,12 @@
 <div ng-swipe-left="openNav('logOpen')" ng-swipe-right="openNav('todoOpen')" class="{{fullscreen}} todo-view-section">
 	<label class="view-checkbox" ng-show="todo.children.length == 0" for="checkbox-for-{{todo.id}}">
-    	<img class="picture-checkbox" ng-show="todo.complete" src="images/checked.png"/>
+    	<img class="picture-checkbox checked" ng-show="todo.complete" src="images/checked.png"/>
     	<div class="picture-checkbox" ng-show="!todo.complete"></div>
     </label>
     <input id="checkbox-for-{{todo.id}}" class="list-item-checkbox hidden" ng-model="todo.complete" ng-change="completeTodo(todo)" type="checkbox" />
     <!--parent done-->
     <label class="view-checkbox" ng-show="todo.children.length >= 1" >
-    	<img class="picture-checkbox" ng-show="todo.complete" src="images/checked.png"/>
+    	<img class="picture-checkbox checked" ng-show="todo.complete" src="images/checked.png"/>
     	<img class="picture-checkbox" ng-show="!todo.complete" src="images/blank.gif"/>
     </label>
 	<p class="todo-id">Id: {{ todo.id }}</p>

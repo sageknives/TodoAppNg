@@ -1,4 +1,5 @@
-<div id="error-container" class="animate-element" ng-swipe-right="openNav('')">
+<div id="error-container" class="animate-element" ng-swipe-right="openNav(previousMenu)">
+	<button class="rect-button pink" ng-click="openNav(previousMenu)">back</button>
 	<h3>Sorry, {{errorMessage}}</h3>
 	<h1>:(</h1>
 </div>

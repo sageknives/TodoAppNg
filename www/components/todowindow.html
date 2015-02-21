@@ -11,7 +11,7 @@
 			    	<img class="picture-checkbox" ng-show="node.complete" src="images/checked.png"/>
 			    	<div class="picture-checkbox" ng-show="!node.complete"></div>
 			    </label>
-			    <input id="checkbox-for-{{node.id}}" class="list-item-checkbox hidden" ng-model="node.complete" ng-change="todoCompleteChange(node)" type="checkbox" />
+			    <input id="checkbox-for-{{node.id}}" class="list-item-checkbox hidden" ng-model="node.complete" ng-change="completeTodo(node)" type="checkbox" />
 			    <!--parent done-->
 			    <label ng-show="node.children.length >= 1" >
 			    	<img class="picture-checkbox" ng-show="node.complete" src="images/checked.png"/>

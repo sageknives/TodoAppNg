@@ -6,12 +6,12 @@
 
     var TodoNavController = function($scope, $routeParams,$timeout,$location, ModelManager, NavManager,ViewManager){
 
-        $scope.activeNav = '';
-        $scope.activeList = null;
-        $scope.previousMenu= "";
-        $scope.parentAddNode= null;
-        $scope.currentNode = null;
-        $scope.activeSubMenu = '';
+        //$scope.activeNav = '';
+        //$scope.activeList = null;
+        //$scope.previousMenu= "";
+        //$scope.parentAddNode= null;
+        //$scope.currentNode = null;
+        //$scope.activeSubMenu = '';
 
   	     
         //shared nav
@@ -24,7 +24,6 @@
             }
             console.log(node.id);
             ViewManager.setCurrentNode(node);
-            //todo.setNode(node);
             $location.path('/todo-list/'+node.id);
             console.log('redirected');
         };
@@ -39,18 +38,18 @@
             $scope.format = 'M-dd-yyyy';
             $scope.minDate = Date.now();
             $scope.maxDate = node.dueDate;
-            $scope.previousMenu = $scope.activeNav;
             $scope.parentAddNode = node;
             $scope.openNav('addFormOpen');
         };
         //shared nav
         $scope.editForm = function(node){
-            $scope.editAddNode = node;
+            $scope.editAddNode = $scope.createTodoFromTodo(node);
+            $scope.nodeToSave = node;
             $scope.noDueDate = node.dueDate === null;
-            //if(node.dueDate === null){
-            //    $scope.editAddNode.dueDate = new Date();
-           // }
-            
+            $scope.format = 'M-dd-yyyy';
+            $scope.minDate = Date.now();
+            $scope.maxDate = node.parentNode.dueDate;
+            $scope.parentAddNode = node.parentNode;
             $scope.openNav('addFormOpen');
         }; 
         //shared nav
@@ -64,8 +63,15 @@
                 $scope.activeNav = "";
             }
             else{
+                $scope.previousMenu = $scope.activeNav;
                 $scope.activeNav = nav;
             }
+        };
+        //shared nav
+        $scope.moveForm = function(node){
+            $scope.moveNode = node;
+            $scope.openNav('moveFormOpen');
+            $scope.todoNode = node.parentNode;
         };
         NavManager.setNav($scope);
         $scope.activeRepoList = ModelManager.getRepos();
@@ -124,7 +130,7 @@
             }, 200); 
         };
 
-        //private nav
+        //private nav this should be changed to use a model if possible.
         $scope.showOptions = function(node){
             console.log(node.id);
             var newSubMenu = 'list-bottom-' + node.id;
@@ -140,60 +146,34 @@
         };
 
         //private nav
-        //not sure in use
-        $scope.open = function($event) {
-    	    $event.preventDefault();
-    	    $event.stopPropagation();
-    	    $scope.opened = true;
-        };
-
-        //private nav
-        //not sure in use
-        $scope.close = function(){
-            $scope.opened = false;
-        };
-
-        $scope.todoCompleteChange = function(node){
-            todo.todoIsComplete(node);
-        };
-
-        //private nav
-        $scope.updateDueDate = function(){
-            if($scope.editAddNode.dueDate === null){
-                $scope.editAddNode.dueDate = new Date();
+        $scope.updateDueDate = function(noDate){
+            console.log('is '+ noDate);
+            if(noDate){
+                console.log('due date:' + $scope.editAddNode.dueDate);
+                $scope.editAddNode.dueDate = null;
+                console.log('due date:' + $scope.editAddNode.dueDate);
             }
             else{
-                $scope.editAddNode.dueDate = null;
+                console.log('due date:' + $scope.editAddNode.dueDate);
+                $scope.editAddNode.dueDate = new Date();
+                console.log('due date:' + $scope.editAddNode.dueDate);
             }
         };
 
         //private nav
         $scope.submitAddForm = function(parent){
             console.log('in submit add form');
-            if($scope.noDueDate){
-                $scope.editAddNode.dueDate = null;
-            }
-            else{
+            if($scope.editAddNode.dueDate !== null){
                 $scope.editAddNode.dueDate = $scope.editAddNode.dueDate.toISOString();
             }
-      	    console.log('todo title: ' + $scope.editAddNode.title);
-            console.log('todo parent id: ' + $scope.editAddNode.parentNode.id);
-            console.log('todo due date: ' + $scope.editAddNode.dueDate);
-            console.log('todo description: ' + $scope.editAddNode.desc);
-            console.log('todo parent title:' + $scope.editAddNode.parentNode.title);
-      	    //var newTodo = todo.createTodo(title, desc, dueDate, parent);
+            if($scope.nodeToSave && $scope.nodeToSave.id == $scope.editAddNode.id){
+                $scope.nodeToSave = $scope.editAddNode;
+                $scope.editAddNode = $scope.nodeToSave;
+            }
       	    $scope.addTodo($scope.editAddNode);
       	    $scope.openNav($scope.previousMenu);
         };
-
-        //private nav
-        $scope.moveForm = function(node){
-      	    $scope.moveNode = node;
-      	    $scope.previousMenu = $scope.activeNav;
-      	    $scope.openNav('moveFormOpen');
-      	    $scope.todoNode = node.parentNode;
-        };
-
+        
         //private nav
         $scope.submitMoveForm = function(node,parent){
       	    $scope.moveTodo(node, parent);

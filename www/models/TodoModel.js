@@ -80,6 +80,24 @@
     	};
     	return todo;
     };
+    var createTodoFromTodo = function(node){
+        
+        var todo = {
+            id: node.id,
+            title: node.title,
+            parentNode: node.parentNode,
+            parent: node.parent,
+            complete: node.complete,
+            lastUpdated: new Date(),
+            desc: node.desc,
+            images: [],
+            dueDate: node.dueDate,
+            createdBy: node.createdBy,
+            currentClass: node.currentClass,
+            children: node.children
+        };
+        return todo;
+    };
     
     var moveTodo = function(node, newParent){
     	var children = node.parentNode.children;
@@ -126,10 +144,10 @@
     	if(node.dueDate <= aWeekOut){
             
             if(node.complete){
-                delete model.upcomingTodoList[node.id];
+                delete todoModel.upcomingTodoList[node.id];
             }
             else{
-                model.upcomingTodoList[node.id] = node;
+                todoModel.upcomingTodoList[node.id] = node;
             }
         }
     	node.lastUpdated = new Date().toISOString();
@@ -352,6 +370,7 @@
         viewScope.deleteTodo = deleteTodo;
         viewScope.completeTodo = todoIsComplete;
         viewScope.createTodo = createTodo;
+        viewScope.createTodoFromTodo = createTodoFromTodo;
     };
     var bindTodoVariables = function(viewScope){
         viewScope.upcomingTodoList = todoModel.upcomingTodoList;

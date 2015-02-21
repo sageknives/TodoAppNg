@@ -14,13 +14,13 @@
 		<button class="rect-button green add-button" ng-click="addForm(todolist)">add</button>
 		<!--leaf-->
 	    <label class="view-checkbox" ng-show="todolist.children.length == 0" for="checkbox-for-{{todolist.id}}">
-	    	<img class="picture-checkbox" ng-show="todolist.complete" src="images/checked.png"/>
+	    	<img class="picture-checkbox checked" ng-show="todolist.complete" src="images/checked.png"/>
 	    	<div class="picture-checkbox" ng-show="!todolist.complete"></div>
 	    </label>
 	    <input id="checkbox-for-{{todolist.id}}" class="list-item-checkbox hidden" ng-model="todolist.complete" ng-change="completeTodo(todolist)" type="checkbox" />
 	    <!--parent done-->
 	    <label class="view-checkbox" ng-show="todolist.children.length >= 1" >
-	    	<img class="picture-checkbox" ng-show="todolist.complete" src="images/checked.png"/>
+	    	<img class="picture-checkbox checked" ng-show="todolist.complete" src="images/checked.png"/>
 	    	<img class="picture-checkbox" ng-show="!todolist.complete" src="images/blank.gif"/>
 	    </label>
 	</div>
