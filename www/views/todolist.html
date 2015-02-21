@@ -1,4 +1,4 @@
-<div ng-swipe-left="openNav('logOpen')" ng-swipe-right="openNav('todoOpen')" class="full-screen">
+<div class="full-screen">
 	<button class="list-item-title rect-button" ng-if="todolist.parentNode !== null" ng-click="updateViewNode(todolist.parentNode, 'list')"> Up to {{todolist.parentNode.title}}</button>
 	<div class="todo-view-section todo-view-section-header">
 		<p class="todo-id">Id: {{ todolist.id }}</p>
