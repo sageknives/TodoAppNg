@@ -5,8 +5,8 @@
 		<h3>Upcoming Todos</h3>	
 		<ul class="page-view-list">
 	    <li id="listitem-{{todo.id}}" class="list-item" ng-repeat="(key, todo) in upcomingTodoList|orderBy:'todo.dueDate'">
-			<button class="list-item-title" ng-if="(todo.children).length >= 1" ng-click="updateViewNode(todo, 'list')">{{todo.title}}</button>
-	        <button class="list-item-title" ng-if="(todo.children).length == 0" ng-click="updateViewNode(todo, 'list')">{{todo.title}}</button>
+			<button class="list-item-title" ng-if="(todo.children).length >= 1" ng-click="updateViewNode(todo, 'todo')">{{todo.title}}</button>
+	        <button class="list-item-title" ng-if="(todo.children).length == 0" ng-click="updateViewNode(todo, 'todo')">{{todo.title}}</button>
 	    </li>
 	  </ul>
 	</div>
