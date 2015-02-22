@@ -7,10 +7,10 @@
 		<li id="listitem-{{node.id}}" class="list-item" ng-repeat="node in activeRepoList.children | orderBy:'complete'">
   			<div class="list-item-top">
 				<button class="list-item-button" ng-click="showOptions(node)"><img class="nav-image" src="images/settings-icon.png" /></button>
-				<a ng-if="(node.children).length >= 1" href="#/todo-list/{{node.id}}" class="list-item-button" ng-click="updateViewNode(node,'list')">view</a>
+				<button ng-if="(node.children).length >= 1" class="list-item-button" ng-click="updateViewNode(node,'repo')">view</button>
 				<button ng-if="(node.children).length == 0" class="list-item-button" ng-click="errorWindow('Repo add')"><img class="nav-image" src="images/add.png" /></button>
-				<a class="list-item-title" ng-if="(node.children).length >= 1" href="" ng-click="change(node)">{{node.title}}</a>
-				<a class="list-item-title" ng-if="(node.children).length == 0" href="#/todo-view/{{node.id}}"  ng-click="updateViewNode(node, 'list')">{{node.title}} page</a>
+				<button class="list-item-title" ng-if="(node.children).length >= 1" ng-click="change(node)">{{node.title}}</button>
+				<button class="list-item-title" ng-if="(node.children).length == 0" ng-click="updateViewNode(node, 'repo')">{{node.title}} page</button>
 				<br class="clear" />
   			</div>
   			<div id="list-bottom-{{node.id}}" class="list-item-bottom animate-element">

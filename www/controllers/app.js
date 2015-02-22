@@ -11,9 +11,9 @@
         templateUrl: "views/home.html",
         controller: "HomeController"
       })
-      .when("/todo-view/:id",{
-        templateUrl: 'views/todoview.html',
-        controller: 'TodoViewController'
+      .when("/repo-list/:id",{
+        templateUrl: 'views/repolist.html',
+        controller: 'RepoListController'
       })
       .when("/todo-list/:id",{
         templateUrl: 'views/todolist.html',
@@ -23,8 +23,6 @@
   });
   
   app.config(['$controllerProvider', function($controllerProvider) {
-  // this option might be handy for migrating old apps, but please don't use it
-  // in new ones!
   $controllerProvider.allowGlobals();
 }]);
 }());

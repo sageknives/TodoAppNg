@@ -1,0 +1,15 @@
+<div class="full-screen">
+	<button class="list-item-title rect-button" ng-if="todolist.parentNode !== null" ng-click="updateViewNode(todolist.parentNode, 'repo')"> Up to {{todolist.parentNode.title}}</button>
+	<div class="todo-view-section todo-view-section-header">
+		<p class="todo-id">Id: {{ todolist.id }}</p>
+		<h3 class="title">Title: {{ todolist.title }}</h3>
+		<p class="desc">Description: {{ todolist.desc }}</p>
+		<p class="parent-id">Parent: {{ todolist.parent }}</p>
+		<p class="todo-date">Last Updated: {{ todolist.lastUpdated | date:'fullDate'}}</p>
+		<p class="user">Created By: {{ todolist.createdBy }}</p>
+		<p class="subtask-count">Subtasks:{{todolist.children.length}}</p>
+		<div class="filler-50"></div>
+	</div>
+	<div class="todo-view-children" ng-repeat="todo in todolist.children | orderBy:'complete'" ng-include="'views/todoview.html'"></div>
+	<div class="filler"></div>
+</div>

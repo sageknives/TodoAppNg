@@ -1,0 +1,11 @@
+<div class="{{fullscreen}} todo-view-section">
+	<p class="todo-id">Id: {{ todo.id }}</p>
+	<h3 class="title">Title: {{ todo.title }}</h3>
+	<p class="desc">Description: {{ todo.desc }}</p>
+	<p class="parent-id">Parent: {{ todo.parent }}</p>
+	<p class="todo-date">Last Updated: {{ todo.lastUpdated | date:'fullDate'}}</p>
+	<p class="user">Created By: {{ todo.createdBy }}</p>
+	<p class="subtask-count">Subtasks:{{todo.children.length}}</p>
+	<div class="filler-50"></div>
+	<button ng-if="(todo.children.length) >= 1" class="rect-button show-subtasks" ng-click="updateViewNode(todo, 'repo')">Show subtasks</button>	
+</div>

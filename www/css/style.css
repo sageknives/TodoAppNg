@@ -449,7 +449,7 @@ div.picture-checkbox{
 	background-color: #DE9999;
 	color:black;
 }
-.list-div a {
+.list-div a, .list-div button{
   color:white;
   text-decoration: none;
 }

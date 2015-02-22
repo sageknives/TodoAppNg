@@ -15,18 +15,21 @@
                 {
                     id: '3',
                     title: 'Services',
+                    parentNode: null,
                     complete: false,
                     children: []
                 },
                 {
                     id: '4',
                     title: 'android',
+                    parentNode: null,
                     complete: false,
                     children: []
                 },
                 {
                     id: '5',
                     title: 'memory leaks',
+                    parentNode: null,
                     complete: false,
                     children: []
                 }
