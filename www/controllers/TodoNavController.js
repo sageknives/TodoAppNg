@@ -135,7 +135,7 @@
         $scope.submitAddForm = function(originalNode){
             console.log('in submit add form');
             if($scope.editAddNode.dueDate !== null){
-                $scope.editAddNode.dueDate = $scope.editAddNode.dueDate.toISOString();
+                //$scope.editAddNode.dueDate = $scope.editAddNode.dueDate.toISOString();
             }
             if(originalNode && originalNode.id == $scope.editAddNode.id){
                 originalNode = $scope.editAddNode;

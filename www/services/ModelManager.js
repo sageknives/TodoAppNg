@@ -10,7 +10,24 @@
     var ModelManager = function($http, $window, NotificationLog, RepoModel, TodoModel ) {
         var mytoken = '';
         var login = function(userName,password) {
-            var url = "http://sagegatzke.com/todosajax/services.php/?username="+ userName +"&password=" +password;
+            var request = $http({
+                method: "post",
+                url: 'http://sagegatzke.com/todosajax/services.php',
+                data: {
+                    username: userName,
+                    password: password
+                },
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            });
+
+            /* Check whether the HTTP Request is successful or not. */
+            return request.then(function (data) {
+                    console.log('login true');
+                    mytoken = data.data;
+                    models.loggedInStatus = true;
+                    return TodoModel.getAll(mytoken);
+            });
+            /*var url = "http://sagegatzke.com/todosajax/services.php/?username="+ userName +"&password=" +password;
             return $http.get(url)
             .then(function(data, status, headers, config) {
                 if(data.data > 0){
@@ -28,7 +45,7 @@
                     mytoken = "invalid log in";
                 }
                 return mytoken;
-            });
+            });*/
         };
 
         var getTodoModel = function(){

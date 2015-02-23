@@ -19,11 +19,26 @@
 
         var getAll = function(token) {
             mytoken = token;
+            var request = $http({
+                method: "post",
+                url: 'http://sagegatzke.com/todosajax/services.php',
+                data: {
+                    token: token,
+                    action: 'getall'
+                },
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            });
+            return request.then(function (data) {
+                    console.log('tree true');
+                    todoModel.todos = makeTree(null, data.data);
+                    return;
+            });
+            /*mytoken = token;
 	        return $http.get("http://sagegatzke.com/todosajax/services.php/?action=getall&token=" + token)
 	            .then(function(data, status, headers, config) {
 	      	        todoModel.todos = makeTree(null, data.data);
 	      	        return;
-	            });
+	            });*/
         }; 
         var addTodo = function(todo){
             todo.lastUpdated = new Date().toISOString();
@@ -35,12 +50,32 @@
     	    	}
     	    	todoModel.listOfTodos[todo.id] = todo;
         	}
-        	
+        	var request = $http({
+                method: "post",
+                url: 'http://sagegatzke.com/todosajax/services.php',
+                data: {
+                    token: mytoken,
+                    action: 'add',
+                    treeId: todo.parent,
+                    name: todo.title,
+                    info: todo.desc,
+                    duedate: todo.dueDate,
+                    lastupdated: todo.lastUpdated,
+                    todoid: todo.id
+                },
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            });
+            return request.then(function (data) {
+                    todo.id = data.data.id;
+                    todo.createdBy = data.data.createdby;
+            });
+            /*
         	$http.get("http://sagegatzke.com/todosajax/services.php/?action=add&token=" + mytoken + "&treeId=" + todo.parent + "&name=" + todo.title + "&info=" + todo.desc + "&date=" + todo.dueDate + "&lastupdated=" + todo.lastUpdated + "&todoid=" + todo.id )
     	        .then(function(data, status, headers, config) {
     	      	    todo.id = data.data.id;
     	      	    todo.createdBy = data.data.createdby;
-    	        });   	      
+    	        });
+                */   	      
         };   
         var createTodo = function(title, desc, dueDate, parent){
     		dueDate = new Date(dueDate);
@@ -106,10 +141,25 @@
         		todoIsComplete(node.parentNode);
         	}
             node.lastUpdated = new Date().toISOString();
-        	$http.get("http://sagegatzke.com/todosajax/services.php/?action=move&token=" + mytoken + "&treeId=" + node.id + "&parent=" + node.parent + "&lastupdated=" + node.lastUpdated)
+            var request = $http({
+                method: "post",
+                url: 'http://sagegatzke.com/todosajax/services.php',
+                data: {
+                    token: mytoken,
+                    action: 'move',
+                    treeId: node.id,
+                    parent: node.parent,
+                    lastupdated: node.lastUpdated
+                },
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            });
+            return request.then(function (data) {
+                    console.log('todo moved');
+            });
+        	/*$http.get("http://sagegatzke.com/todosajax/services.php/?action=move&token=" + mytoken + "&treeId=" + node.id + "&parent=" + node.parent + "&lastupdated=" + node.lastUpdated)
     	      .then(function(data, status, headers, config) {
                 console.log('todo moved');
-    	      });
+    	      });*/
         };
         var convertBoolToNum = function(value){
         	if(value) return 1;
@@ -125,9 +175,25 @@
                 }
             }
         	node.lastUpdated = new Date().toISOString();
-        	$http.get("http://sagegatzke.com/todosajax/services.php/?action=complete&token=" + mytoken + "&treeId=" + node.id + "&complete=" + convertBoolToNum(node.complete) + "&lastupdated=" + node.lastUpdated)
+            var request = $http({
+                method: "post",
+                url: 'http://sagegatzke.com/todosajax/services.php',
+                data: {
+                    token: mytoken,
+                    action: 'complete',
+                    treeId: node.id,
+                    complete: convertBoolToNum(node.complete),
+                    lastupdated: node.lastUpdated
+                },
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            });
+            request.then(function (data) {
+                console.log('todo complete:' + node.complete);
+            });
+        	/*$http.get("http://sagegatzke.com/todosajax/services.php/?action=complete&token=" + mytoken + "&treeId=" + node.id + "&complete=" + convertBoolToNum(node.complete) + "&lastupdated=" + node.lastUpdated)
     	      .then(function(data, status, headers, config) {
     	      });
+            */
     	    if(!node.complete && node.parentNode !== null && node.parentNode.complete){
     	    	node.parentNode.complete = false;
         		todoIsComplete(node.parentNode);
