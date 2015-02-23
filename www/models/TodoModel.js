@@ -8,7 +8,7 @@
         currentNode: null
     };
   
-    /* Code needs refactoring
+    /* C
     Also arrays should be dictionaries for easy sorting and deleting
     */
     var mytoken = '54359';
@@ -99,7 +99,7 @@
         	}
         	node.parent = newParent.id;
         	node.parentNode = newParent;
-        	node.lastUpdated = getTimeStamp();
+        	node.lastUpdated = new Date().toISOString();
         	newParent.children.push(node);
         	if(node.parentNode.complete != node.complete && !node.complete){
         		node.parentNode.complete = false;
@@ -108,6 +108,7 @@
             node.lastUpdated = new Date().toISOString();
         	$http.get("http://sagegatzke.com/todosajax/services.php/?action=move&token=" + mytoken + "&treeId=" + node.id + "&parent=" + node.parent + "&lastupdated=" + node.lastUpdated)
     	      .then(function(data, status, headers, config) {
+                console.log('todo moved');
     	      });
         };
         var convertBoolToNum = function(value){
