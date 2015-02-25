@@ -18,24 +18,22 @@
         };
         //shared nav
         $scope.addForm = function(node){
-            $scope.editAddNode = $scope.createTodo("", "", Date.now(), node);
+            $scope.node = $scope.createTodo("", "", Date.now(), node);
             $scope.dateOptions = {
                 formatYear: 'yy',
                 startingDay: 1
             };
-            $scope.originalNode = null;
             $scope.noDueDate = false;
             $scope.format = 'M-dd-yyyy';
             $scope.minDate = Date.now();
             $scope.maxDate = node.dueDate;
-            $scope.parentAddNode = node;
             $scope.openNav('addFormOpen');
         };
         //shared nav
         $scope.editForm = function(node){
-            $scope.editAddNode = $scope.createTodoFromTodo(node);
-            $scope.originalNode = node;
-            $scope.noDueDate = node.dueDate === null;
+            $scope.node = node;
+            $scope.rollback = {title: node.title, desc: node.desc, dueDate: node.dueDate};
+            $scope.noDueDate = node.dueDate === null;;
             $scope.format = 'M-dd-yyyy';
             $scope.minDate = Date.now();
             $scope.maxDate = node.parentNode.dueDate;
@@ -124,24 +122,24 @@
         //private nav
         $scope.updateDueDate = function(noDate){
             if(noDate){
-                $scope.editAddNode.dueDate = null;
+                $scope.node.dueDate = null;
             }
             else{
-                $scope.editAddNode.dueDate = new Date();
+                $scope.node.dueDate = new Date();
             }
         };
 
+        $scope.cancelEditAdd = function(node, rollback){
+            if(node.id != ''){
+                node.dueDate = rollback.dueDate;
+                node.title = rollback.title;
+                node.desc = rollback.desc;
+            }
+        };
         //private nav
-        $scope.submitAddForm = function(originalNode){
+        $scope.submitAddForm = function(){
             console.log('in submit add form');
-            if($scope.editAddNode.dueDate !== null){
-                //$scope.editAddNode.dueDate = $scope.editAddNode.dueDate.toISOString();
-            }
-            if(originalNode && originalNode.id == $scope.editAddNode.id){
-                originalNode = $scope.editAddNode;
-                $scope.editAddNode = originalNode;
-            }
-      	    $scope.addTodo($scope.editAddNode);
+      	    $scope.addTodo($scope.node);
       	    $scope.openNav($scope.previousMenu);
         };
         

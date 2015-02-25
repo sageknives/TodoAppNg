@@ -11,7 +11,7 @@
     /* C
     Also arrays should be dictionaries for easy sorting and deleting
     */
-    var mytoken = '54359';
+    var mytoken = {};
     var aWeekOut = new Date();
     aWeekOut.setDate(aWeekOut.getDate() + 7); 
 
@@ -96,6 +96,7 @@
     	    return todo;
         };
         var createTodoFromTodo = function(node){
+            
             var todo = {
                 id: node.id,
                 title: node.title,

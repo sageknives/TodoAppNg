@@ -1,9 +1,9 @@
 <div id="add-form-container" class="animate-element">
 	<div id="add-form" class="dark-form">
 		<p id="invalid-todo">invalid todo</p>
-		<label for="add-todo-name">Title:</label><input type="text" id="add-todo-name" ng-model="editAddNode.title" name="todoname" />
-		<input type="hidden" id="add-todo-date" name="tododate" value="{{editAddNode.dueDate}}"/>
-		<pre ><em>Due:{{editAddNode.dueDate | date:'fullDate' }}</em></pre>
+		<label for="add-todo-name">Title:</label><input type="text" id="add-todo-name" ng-model="node.title" name="todoname" />
+		<input type="hidden" id="add-todo-date" name="tododate" value="{{node.dueDate}}"/>
+		<pre ><em>Due:{{node.dueDate | date:'fullDate' }}</em></pre>
 		<label class="addEdit-checkbox" for="checkbox-for-add-edit-node">
 			No Due Date: 
     		<img class="picture-checkbox" ng-show="noDueDate" src="images/checked.png"/>
@@ -12,15 +12,15 @@
     	</label>
     	<input id="checkbox-for-add-edit-node" class="list-item-checkbox hidden" ng-model="noDueDate" ng-change="updateDueDate(noDueDate)" type="checkbox" />
 		<div class="divCenter">
-        	<datepicker ng-hide="noDueDate" ng-model="editAddNode.dueDate" min-date="minDate" show-weeks="false" max-date="maxDate" class="well well-sm"></datepicker>
+        	<datepicker ng-hide="noDueDate" ng-model="node.dueDate" min-date="minDate" show-weeks="false" max-date="maxDate" class="well well-sm"></datepicker>
     	</div>
     
-		<label for="add-todo-desc">Description:</label><textarea rows="5" type="text" id="add-todo-desc" ng-model="editAddNode.desc" name="tododesc" value=""/></textarea>
+		<label for="add-todo-desc">Description:</label><textarea rows="5" type="text" id="add-todo-desc" ng-model="node.desc" name="tododesc" value=""/></textarea>
 		<br class="clear"/>
 		<!--<p>Add Image:</p><button id="browse-image1" class="browse-button" name="browse" value="browse">Browse</button>
 		<br class="clear"/>-->
-		<button id="cancel-button" class="rect-button red" name="submit" value="submit" ng-click="openNav(previousMenu)">Cancel</button>
-		<button id="add-button" class="rect-button green" name="submit" value="submit" ng-click="submitAddForm(originalNode)">Add</button>
+		<button id="cancel-button" class="rect-button red" name="submit" value="submit" ng-click="cancelEditAdd(node,rollback);openNav(previousMenu)">Cancel</button>
+		<button id="add-button" class="rect-button green" name="submit" value="submit" ng-click="submitAddForm()">Add</button>
 		
 		<br class="clear"/>
 		<div class="filler"></div>

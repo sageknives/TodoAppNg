@@ -8,7 +8,7 @@
     };
   
     var ModelManager = function($http, $window, NotificationLog, RepoModel, TodoModel ) {
-        var mytoken = '';
+        var mytoken = {};
         var login = function(userName,password) {
             var request = $http({
                 method: "post",

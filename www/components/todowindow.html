@@ -4,7 +4,7 @@
     	<button class="list-item-button" ng-click="addForm(activeList)"><img class="nav-image" src="images/add.png" /></button>
   	</div>
   	<ul>
-		<li id="listitem-{{activeList.id}}" class="list-item" ng-repeat="node in activeList.children | orderBy:'complete'">
+		<li id="listitem-{{activeList.id}}" class="list-item" ng-repeat="node in activeList.children | orderBy:['complete','title']">
 		  	<div class="list-item-top">
 		  		<!--leaf-->
 			    <label ng-show="node.children.length == 0" for="checkbox-for-{{node.id}}">

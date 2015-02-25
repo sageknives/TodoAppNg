@@ -2,7 +2,7 @@
 	<div id="move-form" class="dark-form">
 		<label class="inline-label" for="current-todo-lists">Move {{moveNode.title}} to:</label>
 		<select id="current-todo-lists"
-			ng-options="todoNode as todoNode.title for todoNode in listOfTodos " 
+			ng-options="todoNode.title for todoNode in listOfTodos"
 			ng-model="todoNode" >
 		</select>
 		<br class="clear"/>
