@@ -4,7 +4,7 @@
     var loggedIn= false;
 
 
-    var TodoNavController = function($scope, $routeParams,$timeout,$location, ModelManager, NavManager,ViewManager){
+    var TodoNavController = function($scope, $routeParams,$timeout,$location,$anchorScroll, ModelManager, NavManager,ViewManager){
   	     
         //shared nav
         $scope.updateViewNode = function (node, type) {
@@ -135,12 +135,19 @@
                 node.title = rollback.title;
                 node.desc = rollback.desc;
             }
+            $scope.scrollToTop('add-form');
+            $scope.openNav($scope.previousMenu);
+        };
+        $scope.scrollToTop = function(id){
+            $location.hash(id);
+            $anchorScroll();
         };
         //private nav
         $scope.submitAddForm = function(){
             console.log('in submit add form');
       	    $scope.addTodo($scope.node);
       	    $scope.openNav($scope.previousMenu);
+            $scope.scrollToTop('add-form');
         };
         
         //private nav
