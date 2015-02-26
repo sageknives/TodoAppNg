@@ -2,6 +2,7 @@
 	<div id="add-form" class="dark-form">
 		<p id="invalid-todo">invalid todo</p>
 		<label for="add-todo-name">Title:</label><input type="text" id="add-todo-name" ng-model="node.title" name="todoname" />
+		<label for="add-todo-desc">Description:</label><textarea rows="5" type="text" id="add-todo-desc" ng-model="node.desc" name="tododesc" value=""/></textarea>
 		<input type="hidden" id="add-todo-date" name="tododate" value="{{node.dueDate}}"/>
 		<pre ><em>Due:{{node.dueDate | date:'fullDate' }}</em></pre>
 		<label class="addEdit-checkbox" for="checkbox-for-add-edit-node">
@@ -15,7 +16,7 @@
         	<datepicker ng-hide="noDueDate" ng-model="node.dueDate" min-date="minDate" show-weeks="false" max-date="maxDate" class="well well-sm"></datepicker>
     	</div>
     
-		<label for="add-todo-desc">Description:</label><textarea rows="5" type="text" id="add-todo-desc" ng-model="node.desc" name="tododesc" value=""/></textarea>
+		
 		<br class="clear"/>
 		<!--<p>Add Image:</p><button id="browse-image1" class="browse-button" name="browse" value="browse">Browse</button>
 		<br class="clear"/>-->

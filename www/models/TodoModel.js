@@ -48,8 +48,14 @@
     	    		todo.parentNode.complete = false;
     	    		todoIsComplete(todo.parentNode);
     	    	}
-    	    	todoModel.listOfTodos[todo.id] = todo;
+    	    	todoModel.listOfTodos['hash'+todo.id] = todo;
         	}
+            if(todo.dueDate !== null && todo.dueDate.toISOString() <= aWeekOut.toISOString()){
+                todoModel.upcomingTodoList[todo.id] = todo;
+            }
+            else{
+                delete todoModel.upcomingTodoList[todo.id];
+            }
         	var request = $http({
                 method: "post",
                 url: 'http://sagegatzke.com/todosajax/services.php',
@@ -265,8 +271,8 @@
         		children: []
         	};
             if(parent !== null){
-                if(data.children.length >= 1){
-                    todoModel.listOfTodos[node.id] = node;
+                if(data.children.length >= 0){
+                    todoModel.listOfTodos['hash'+node.id] = node;
                 }
 
                 if(!node.complete && node.dueDate !== null && node.dueDate <= aWeekOut){
@@ -309,12 +315,103 @@
             viewScope.currentNode = todoModel.currentNode;
         };
 
+        var checkForUpdates = function(){
+            var lastTimeChecked = new Date();
+            console.log('now is ' + lastTimeChecked);
+            //lastTimeChecked.setMinutes(lastTimeChecked.getMinutes() + 1);
+            //lastTimeChecked.setHours(lastTimeChecked.getHours() + 1);
+            //lastTimeChecked.setDate(lastTimeChecked.getDate() +1); 
+            //console.log('60 seconds ago was ' + lastTimeChecked);
+            var request = $http({
+                method: "post",
+                url: 'http://sagegatzke.com/todosajax/services.php',
+                data: {
+                    token: mytoken,
+                    action: 'getnew',
+                    jstime: lastTimeChecked
+                },
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            });
+            request.then(function (data) {
+                var newItems = data.data;
+                console.log('check for updates since last update');
+                if(newItems !=  'no updates') asyncUpdateTree(newItems);
+                console.log('async update done');
+
+            });
+            
+        };
+
+        var asyncUpdateTree = function(items){
+            for(var i =0; i<items.length;i++){
+                var id = items[i].id;
+                var listItem = todoModel.listOfTodos['hash'+id];
+                if(listItem !== undefined){
+                    updateAsyncTodo(listItem,items[i]);
+                }
+                else{
+                    listItem = createAsyncTodo(items[i]);
+                }
+                
+                if(listItem.dueDate <= aWeekOut)
+                {
+                    if(listItem.complete){
+                        delete todoModel.upcomingTodoList[listItem.id];
+                    }
+                    else{
+                        todoModel.upcomingTodoList[listItem.id] = listItem;
+                    }
+                }
+            }
+        };
+
+        var updateAsyncTodo = function(a,b){
+            a.title = b.title;
+            a.desc = b.desc;
+            a.dueDate = convertDateForTree(b.duedate);
+            a.lastUpdated = convertDateForTree(b.lastupdated);
+            a.complete = b.complete == 1;
+            a.images = b.images;
+
+            if(a.parent != b.parent){
+                a.parent = b.parent;
+                for(var i=0;i<a.parentNode.children.length;i++){
+                    if(a.parentNode.children[i].id == a.id){
+                        a.parentNode.children.splice(i,1);
+                        break;
+                    }
+                }
+                a.parentNode = todoModel.listOfTodos['hash'+a.parent];
+                todoModel.listOfTodos['hash'+a.parent].children.push(a);
+            }
+        };
+
+        var createAsyncTodo = function(data){
+            var node = {
+                id: data.id,
+                title: data.title,
+                parentNode: todoModel.listOfTodos['hash'+data.parent],
+                parent: data.parent,
+                complete: data.complete == 1,
+                lastUpdated: convertDateForTree(data.lastupdated),
+                desc: data.desc,
+                images: data.images,
+                dueDate: convertDateForTree(data.duedate),
+                createdBy: data.createdby,
+                currentClass: "",
+                children: []
+            };
+            node.parentNode.children.push(node);
+            return node;
+        };
+
     return {
         getAll: getAll,
         getUpcoming:getUpcoming,
         getModel:getModel,
         getActions:getActions,
-        bindTodoVariables:bindTodoVariables
+        bindTodoVariables:bindTodoVariables,
+        checkForUpdates:checkForUpdates
     };
   };
 

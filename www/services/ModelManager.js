@@ -48,6 +48,10 @@
             });*/
         };
 
+        var checkForUpdates = function(){
+            TodoModel.checkForUpdates();
+        };
+
         var getTodoModel = function(){
             return TodoModel.getModel();
         };
@@ -71,7 +75,8 @@
             getTodoActions:getTodoActions,
             bindTodoVariables:bindTodoVariables,
             getRepos:getRepos,
-            getNotifications:getNotifications
+            getNotifications:getNotifications,
+            checkForUpdates:checkForUpdates
         };
     
     };

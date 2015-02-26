@@ -4,7 +4,7 @@
     var loggedIn= false;
 
 
-    var TodoNavController = function($rootScope, $scope, $routeParams,$timeout,$location,$anchorScroll, ModelManager, NavManager,ViewManager){
+    var TodoNavController = function($rootScope, $scope, $routeParams, $timeout, $location, $anchorScroll, $interval, ModelManager, NavManager,ViewManager){
   	     $scope.activeNav = '';
         //shared nav
         $scope.updateViewNode = function (node, type) {
@@ -82,11 +82,13 @@
     		        else{
                         $scope.activeNav = '';
                         $scope.loneButton = '';
-                        $scope.todos = ModelManager.getTodoModel().todos;
+                        $scope.todos = ModelManager.getTodoModel().listOfTodos;
                         $scope.logItems = ModelManager.getNotifications();
                         $scope.loggedIn = true;
                         ModelManager.getTodoActions($scope);
                         ModelManager.bindTodoVariables($scope);
+                        //check for updates
+                        $interval(ModelManager.checkForUpdates, 30000);
                     }
             });
         };
@@ -157,6 +159,10 @@
       	    $scope.moveTodo(node, parent);
       	    $scope.openNav($scope.previousMenu);
         };
+
+        
+
+        //override back button
         $rootScope.$on("$routeChangeStart", function(event, next, current) {
             if($scope.activeNav === undefined|| $scope.activeNav != ''){
                 event.preventDefault();

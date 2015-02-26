@@ -8,6 +8,14 @@
         console.log('got home nav connected');
         ModelManager.bindTodoVariables($scope);
         console.log('got home variables connected');
+
+        $scope.todayTomorrow = function(){
+
+        };
+
+        $scope.thisWeek = function(){
+
+        };
     };
   
     module.controller("HomeController",HomeController);

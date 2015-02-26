@@ -7,27 +7,27 @@
     /* Get repo list */
     var getRepoList = function(id) {
 	    repoList = {
-            id: '2',
+            id: '2b',
             title: 'Repos',
             parentNode: null,
             complete: true,
             children: [
                 {
-                    id: '3',
+                    id: '3c',
                     title: 'Services',
                     parentNode: null,
                     complete: false,
                     children: []
                 },
                 {
-                    id: '4',
+                    id: '4c',
                     title: 'android',
                     parentNode: null,
                     complete: false,
                     children: []
                 },
                 {
-                    id: '5',
+                    id: '5c',
                     title: 'memory leaks',
                     parentNode: null,
                     complete: false,

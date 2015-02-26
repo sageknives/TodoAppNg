@@ -3,10 +3,11 @@
 	<div ng-show="upcomingTodoList" class="todo-view-section">
 		
 		<h3>Upcoming Todos</h3>	
+		<img ng-show='upcomingTodoList.keys(obj).length <= 0' src='images/spinner6.gif' />
 		<ul class="page-view-list">
-	    <li id="listitem-{{todo.id}}" class="list-item" ng-repeat="(key, todo) in upcomingTodoList|orderBy:'todo.dueDate'">
-			<button class="list-item-title" ng-if="(todo.children).length >= 1" ng-click="updateViewNode(todo, 'todo')">{{todo.title}} -> {{todo.dueDate | date:'fullDate'}}</button>
-	        <button class="list-item-title" ng-if="(todo.children).length == 0" ng-click="updateViewNode(todo, 'todo')">{{todo.title}} -> {{todo.dueDate | date:'fullDate'}}</button>
+	    <li id="listitem-{{todo.id}}" class="list-item" ng-repeat="(key, todo) in upcomingTodoList|orderObjectBy:'dueDate':false">
+			<button class="list-item-title" ng-if="(todo.children).length >= 1" ng-click="updateViewNode(todo, 'todo')">{{todo.title}} -> {{todo.dueDate | date:'shortDate'}}</button>
+	        <button class="list-item-title" ng-if="(todo.children).length == 0" ng-click="updateViewNode(todo, 'todo')">{{todo.title}} -> {{todo.dueDate | date:'shortDate'}}</button>
 	    </li>
 	  </ul>
 	</div>

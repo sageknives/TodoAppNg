@@ -1,6 +1,20 @@
 (function(){
   var module = angular.module("todoApp");
 
+  module.filter('orderObjectBy', function() {
+  return function(items, field, reverse) {
+    var filtered = [];
+    angular.forEach(items, function(item) {
+      filtered.push(item);
+    });
+    filtered.sort(function (a, b) {
+      return (a[field] > b[field] ? 1 : -1);
+    });
+    if(reverse) filtered.reverse();
+    return filtered;
+  };
+});
+
 module.directive('todo', function($compile, $templateCache) {
   var tpl = '<div  id="listid-{{value.id}}" class="todo-list list-div {{value.currentClass}}">'+
     '     <div class="list-header list-item" ><a href="" ng-click="onTodoNavChange(value.parentNode, action)"><{{value.title}}</a>'+
