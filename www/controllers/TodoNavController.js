@@ -142,6 +142,7 @@
         $scope.scrollToTop = function(id){
             $location.hash(id);
             $anchorScroll();
+            $location.hash('');
         };
         //private nav
         $scope.submitAddForm = function(){
