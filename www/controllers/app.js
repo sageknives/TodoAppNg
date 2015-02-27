@@ -1,7 +1,7 @@
 (function(){
-  var app = angular.module("todoApp",["ngRoute", "ngTouch",'ui.bootstrap']);
+  var myapp = angular.module("todoApp",["ngRoute", "ngTouch",'ui.bootstrap']);
 
-  app.config(function($routeProvider){
+  myapp.config(function($routeProvider){
     $routeProvider
       .when("/index", {
         templateUrl:"views/login.html",
@@ -22,7 +22,7 @@
       .otherwise({redirectTo:"/home"});
   });
   
-  app.config(['$controllerProvider', function($controllerProvider) {
+  myapp.config(['$controllerProvider', function($controllerProvider) {
   $controllerProvider.allowGlobals();
 }]);
 }());
