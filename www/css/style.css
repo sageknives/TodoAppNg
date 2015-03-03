@@ -59,8 +59,9 @@ table {
         text-indent: 0;
 }
 html, body{
-  width:100%
+  width:100%;
   background-color:#EEEEEE;
+  overflow-y:hidden;
 }
 :focus {
   outline-color: transparent;
@@ -148,20 +149,22 @@ div .list-item .view-image {
   top:50px;
   left:0;
   right:0;
-  bottom:50px;
+  bottom:45px;
   z-index:1;
-  overflow-y:scroll;
+  overflow-y:none;
+}
+#deviceready {
+	overflow: overlay;
 }
 .full-screen{
 	position:fixed;
   top:50px;
   right:0;
-  bottom:50px;
+  bottom:0px;
   left:0;
   z-index:1;
-  height:100%;
-  overflow-y:scroll;
-  padding: 0px 00px 0;
+  overflow-y:overlay;
+  padding: 0px 0px 0;
 }
 div.todo-view-section-header {
 	background:#BCBCBC;
@@ -220,7 +223,7 @@ div.todo-view-section-header {
 	padding-left:10px;	
 }
 /* Styles go here */
-.todo-list, .animate-element{
+.todo-list, .animate-element, #log-list{
   -webkit-transition: all 0.2s ease;
 	-moz-transition: all 0.2s ease;
 	-o-transition: all 0.2s ease;
@@ -319,10 +322,10 @@ div.todo-view-section-header {
 }
 .list-div {
     width:100%;
-    background-color:rgba(0,0,0,.8);
+    background-color:rgba(0,0,0,.9);
 	border:1px solid black;
 	height:100%;
-	overflow-y:scroll;
+	overflow-y:overlay;
 }
 .filler {
 	height:150px;

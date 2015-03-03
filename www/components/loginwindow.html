@@ -1,7 +1,7 @@
 <div ng-show="!loggedIn" id="loginForm" class="animate-element">
 	<form id="login-form" class="dark-form">
-		<label for="username">User Name:</label><input type="text" id="username" name="username" value="">
-		<label for="password">Password:</label><input type="password" id="password" name="password" value="">
+		<label for="username">User Name:</label><input type="text" id="username" name="username" ng-model="loginData.userName">
+		<label for="password">Password:</label><input type="password" id="password" name="password" ng-model="loginData.password">
 		<input type="hidden" id="status" name="status" value="login">
 		<p id="invalid-login">{{loginError}}</p>
 		<button id="login-button" name="submit" value="submit" ng-click="logIn()">Log In</button>

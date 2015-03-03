@@ -48,7 +48,7 @@
     	    		todo.parentNode.complete = false;
     	    		todoIsComplete(todo.parentNode);
     	    	}
-    	    	todoModel.listOfTodos['hash'+todo.id] = todo;
+    	    	
         	}
             if(todo.dueDate !== null && todo.dueDate.toISOString() <= aWeekOut.toISOString()){
                 todoModel.upcomingTodoList[todo.id] = todo;
@@ -74,6 +74,7 @@
             return request.then(function (data) {
                     todo.id = data.data.id;
                     todo.createdBy = data.data.createdby;
+                    todoModel.listOfTodos['hash'+todo.id] = todo;
             });
             /*
         	$http.get("http://sagegatzke.com/todosajax/services.php/?action=add&token=" + mytoken + "&treeId=" + todo.parent + "&name=" + todo.title + "&info=" + todo.desc + "&date=" + todo.dueDate + "&lastupdated=" + todo.lastUpdated + "&todoid=" + todo.id )
@@ -346,11 +347,11 @@
             for(var i =0; i<items.length;i++){
                 var id = items[i].id;
                 var listItem = todoModel.listOfTodos['hash'+id];
-                if(listItem !== undefined){
-                    updateAsyncTodo(listItem,items[i]);
-                }
-                else{
+                if(typeof listItem === "undefined"){
                     listItem = createAsyncTodo(items[i]);
+                }
+                else if(listItem.id == id){
+                    updateAsyncTodo(listItem,items[i]);
                 }
                 
                 if(listItem.dueDate <= aWeekOut)

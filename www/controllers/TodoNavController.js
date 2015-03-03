@@ -4,8 +4,13 @@
     var loggedIn= false;
 
 
-    var TodoNavController = function($rootScope, $scope, $routeParams, $timeout, $location, $anchorScroll, $interval, ModelManager, NavManager,ViewManager){
-  	     $scope.activeNav = '';
+    var TodoNavController = function($rootScope, $scope, $routeParams,$window, $timeout, $location, $anchorScroll, $interval, ModelManager, NavManager,ViewManager){
+        var loginData =  {
+            userName : 'sageknives',
+            password : ''
+        };
+        $scope.loginData = loginData;
+
         //shared nav
         $scope.updateViewNode = function (node, type) {
             $scope.openNav('');
@@ -33,7 +38,7 @@
         $scope.editForm = function(node){
             $scope.node = node;
             $scope.rollback = {title: node.title, desc: node.desc, dueDate: node.dueDate};
-            $scope.noDueDate = node.dueDate === null;;
+            $scope.noDueDate = node.dueDate === null;
             $scope.format = 'M-dd-yyyy';
             $scope.minDate = Date.now();
             $scope.maxDate = node.parentNode.dueDate;
